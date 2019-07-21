@@ -195,7 +195,7 @@ class WP_Nock {
 				return $mock['reply'];
 			}
 		}
-		return true; .
+		return true;
 
 	}
 
