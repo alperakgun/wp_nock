@@ -2,7 +2,7 @@
   "name": "alperakgun/wp_nock",
   "description": "WP_Http server mocking library for PHP/WordPress",
   "type": "library",
-  "license": "GPL v2",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Alper Akgun",
