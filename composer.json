@@ -1,0 +1,15 @@
+{
+    "name": "alperakgun/wp_nock",
+    "description": "WP_Http server mocking library for PHP/WordPress",
+    "type": "library",
+    "license": "GPL v2",
+    "authors": [
+        {
+            "name": "Alper Akgun",
+            "email": "alperakgun@gmail.com"
+        }
+    ],
+  "require": {
+       "php": ">=5.3"
+  }
+}
