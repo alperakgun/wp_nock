@@ -9,7 +9,11 @@
             "email": "alperakgun@gmail.com"
         }
     ],
-  "require": {
-       "php": ">=5.3"
-  }
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {"Sayarus\\WPNock\\": "src/"}
+    },
+    "require": {
+        "php": ">=5.3"
+    }
 }
