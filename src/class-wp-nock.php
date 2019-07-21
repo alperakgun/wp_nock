@@ -185,7 +185,7 @@ class WP_Nock {
 	 * @param String  $url the target url.
 	 * @return Array $response  A response or true for blocking all other requests.
 	 */
-	private function http_stub( $preempt, $request, $url ) {
+	public function http_stub( $preempt, $request, $url ) {
 
 		foreach ( $this->mock_responses as $i => $mock ) {
 			if ( $request['method'] == $mock['type'] && self::matches( $url, $mock['url'] ) ) {
