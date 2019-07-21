@@ -1,19 +1,32 @@
 {
-    "name": "alperakgun/wp_nock",
-    "description": "WP_Http server mocking library for PHP/WordPress",
-    "type": "library",
-    "license": "GPL v2",
-    "authors": [
-        {
-            "name": "Alper Akgun",
-            "email": "alperakgun@gmail.com"
-        }
-    ],
-    "minimum-stability": "stable",
-    "autoload": {
-        "psr-4": {"Sayarus\\WPNock\\": "src/"}
-    },
-    "require": {
-        "php": ">=5.3"
+  "name": "alperakgun/wp_nock",
+  "description": "WP_Http server mocking library for PHP/WordPress",
+  "type": "library",
+  "license": "GPL v2",
+  "authors": [
+    {
+      "name": "Alper Akgun",
+      "email": "alperakgun@gmail.com"
     }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {"Alperakgun\\Testing\\": "src/"}
+  },
+  "scripts": {
+    "test": "docker-compose -f docker-compose.phpunit.yml run --rm wordpress_phpunit phpunit --debug || true",
+    "test:run-docker": "docker-compose -f docker-compose.phpunit.yml up -d",
+    "test:setup": "docker-compose -f docker-compose.phpunit.yml run --rm wordpress_phpunit /app/tests/install-wp-tests.sh wordpress_test root '' mysql_phpunit latest true",
+    "lint:fix": "phpcbf --standard=phpcs.xml.dist --report-summary --report-source",
+    "lint": "phpcs --standard=phpcs.xml.dist"
+  },  
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "squizlabs/php_codesniffer": "^3.1",
+    "wimg/php-compatibility": "^8",
+    "wp-coding-standards/wpcs": "^1.0.0"
+  },
+  "require": {
+    "php": ">=5.3"
+  }
 }
