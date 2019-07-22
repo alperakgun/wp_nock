@@ -52,7 +52,7 @@ class WP_Nock {
 	 * @param String $regex_or_string What has to be searched in the source.
 	 * @return Boolean $match  Matches or not.
 	 */
-	private static function matches( $string, $regex_or_string ) {
+	public static function matches( $string, $regex_or_string ) {
 
 		if ( preg_match( '/^\/[\s\S]+\/$/', $regex_or_string ) ) { // valid regex?
 			return preg_match( $regex_or_string, $string );
