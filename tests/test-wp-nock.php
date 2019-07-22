@@ -13,7 +13,7 @@ class Test_WP_Nock extends WP_UnitTestCase {
 
 		$this->assertInstanceOf( WP_Nock::class, $nock );
 
-		$this->assertTrue( WP_Nock::matches( 'https://www.wordpress.com/test', 'WordPress' ) !== false );
+		$this->assertTrue( WP_Nock::matches( 'https://www.wordpress.com/test', 'word' ) !== false );
 		$this->assertTrue( WP_Nock::matches( 'https://www.wordpress.com/test', '/wordpres./' ) !== false );
 
 		$nock->tear_down();
