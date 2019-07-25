@@ -79,7 +79,7 @@ class WP_Nock {
 				unset( $this->mock_responses[ $i ] );
 				$payload = array( 'location' => $location );
 				if ( ! is_null( $mock['callback'] ) ) {
-					return $mock['callback']( $mock['test'], $payload );
+					return ( $mock['callback']( $payload ) || false );
 				} else {
 					throw new WP_Nock_Exception( 'WP Nock Redirect Spy Exception', $payload );
 				}
