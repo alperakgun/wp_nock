@@ -15,14 +15,14 @@ require( 'class-wp-nock-exception.php' );
  * @since 0.0.1
  */
 class WP_Nock {
-	
+
 	/**
 	 * List of all responses added during testing
 	 *
 	 * @var Array
 	 */
 	protected $mock_responses;
-		
+
 
 	/**
 	 * Adds filters before testing
@@ -78,7 +78,7 @@ class WP_Nock {
 			if ( 'REDIRECT' == $mock['type'] && self::matches( $location, $mock['url'] ) ) {
 				unset( $this->mock_responses[ $i ] );
 				$payload = array( 'location' => $location );
-				if (!is_null( $mock['callback'])  ) {
+				if ( ! is_null( $mock['callback'] ) ) {
 					return $mock['callback']( $mock['test'], $payload );
 				} else {
 					throw new WP_Nock_Exception( 'WP Nock Redirect Spy Exception', $payload );
@@ -104,7 +104,7 @@ class WP_Nock {
 	/**
 	 * Get the number of items in the mock response array
 	 *
-	 * @return Integer $count Number of items in the mock response list
+	 * @return Integer $count Number of items in the mock response list.
 	 */
 	public function get_mock_responses_count() {
 
@@ -115,21 +115,21 @@ class WP_Nock {
 	/**
 	 * Add a stub request to intercept
 	 *
-	 * @param String $url the target url to intercept String or Regex.
-	 * @param String $type HTTP Verb like GET, POST or REDIRECT.
-	 * @param Array  $reply The reply array in response to the request.
-	 * @param Object  $test An optional test object calling this
-	 * @param Function  $callback An optional callback to call for redirects
+	 * @param String   $url the target url to intercept String or Regex.
+	 * @param String   $type HTTP Verb like GET, POST or REDIRECT.
+	 * @param Array    $reply The reply array in response to the request.
+	 * @param Object   $test An optional test object calling this.
+	 * @param Function $callback An optional callback to call for redirects.
 	 * @return Boolean $result True for success.
 	 */
-	public function request( $url, $type, $reply = array(), $test=null, $callback = null  ) {
+	public function request( $url, $type, $reply = array(), $test = null, $callback = null ) {
 
 		$this->mock_responses[] = array(
-			'type'  => $type,
-			'url'   => $url,
-			'reply' => $reply,
-			'test' => $test,
-			'callback' => $callback
+			'type'     => $type,
+			'url'      => $url,
+			'reply'    => $reply,
+			'test'     => $test,
+			'callback' => $callback,
 		);
 
 		return true;
@@ -177,9 +177,9 @@ class WP_Nock {
 	/**
 	 * Add a redirect URL stub request to intercept and raise an exception
 	 *
-	 * @param String $url the target url to intercept String or Regex.
-	 * @param Object  $test An optional test object calling this
-	 * @param Function  $callback An optional callback to call for redirects
+	 * @param String   $url the target url to intercept String or Regex.
+	 * @param Object   $test An optional test object calling this.
+	 * @param Function $callback An optional callback to call for redirects.
 	 * @return Boolean $result True for success.
 	 */
 	public function redirect( $url, $test = null, $callback = null ) {
