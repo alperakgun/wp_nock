@@ -52,6 +52,18 @@ class Test_WP_Nock extends WP_UnitTestCase {
 		$nock->tear_down();
 	}
 
+	public function test_wp_nock_wp_redirect_with_callback() {
+		$nock = new WP_Nock();
+		$nock->set_up();
+
+		$nock->redirect( self::TEST_URL, $this, function($test, $payload) {
+			$this->assertSame( $payload['location'], self::TEST_URL );
+		} );
+
+		wp_redirect( self::TEST_URL );
+		$nock->tear_down();
+	}
+	
 	public function test_wp_nock_wp_remote_get() {
 		$nock = new WP_Nock();
 		$nock->set_up();

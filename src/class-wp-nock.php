@@ -15,13 +15,14 @@ require( 'class-wp-nock-exception.php' );
  * @since 0.0.1
  */
 class WP_Nock {
-
+	
 	/**
 	 * List of all responses added during testing
 	 *
 	 * @var Array
 	 */
 	protected $mock_responses;
+		
 
 	/**
 	 * Adds filters before testing
@@ -77,7 +78,11 @@ class WP_Nock {
 			if ( 'REDIRECT' == $mock['type'] && self::matches( $location, $mock['url'] ) ) {
 				unset( $this->mock_responses[ $i ] );
 				$payload = array( 'location' => $location );
-				throw new WP_Nock_Exception( 'WP Nock Redirect Spy Exception', $payload );
+				if (!is_null( $mock['callback'])  ) {
+					return $mock['callback']( $mock['test'], $payload );
+				} else {
+					throw new WP_Nock_Exception( 'WP Nock Redirect Spy Exception', $payload );
+				}
 			}
 		}
 
@@ -113,14 +118,18 @@ class WP_Nock {
 	 * @param String $url the target url to intercept String or Regex.
 	 * @param String $type HTTP Verb like GET, POST or REDIRECT.
 	 * @param Array  $reply The reply array in response to the request.
+	 * @param Object  $test An optional test object calling this
+	 * @param Function  $callback An optional callback to call for redirects
 	 * @return Boolean $result True for success.
 	 */
-	public function request( $url, $type, $reply = array() ) {
+	public function request( $url, $type, $reply = array(), $test=null, $callback = null  ) {
 
 		$this->mock_responses[] = array(
 			'type'  => $type,
 			'url'   => $url,
 			'reply' => $reply,
+			'test' => $test,
+			'callback' => $callback
 		);
 
 		return true;
@@ -169,11 +178,13 @@ class WP_Nock {
 	 * Add a redirect URL stub request to intercept and raise an exception
 	 *
 	 * @param String $url the target url to intercept String or Regex.
+	 * @param Object  $test An optional test object calling this
+	 * @param Function  $callback An optional callback to call for redirects
 	 * @return Boolean $result True for success.
 	 */
-	public function redirect( $url ) {
+	public function redirect( $url, $test = null, $callback = null ) {
 
-		return $this->request( $url, 'REDIRECT' );
+		return $this->request( $url, 'REDIRECT', null, $test, $callback );
 
 	}
 
