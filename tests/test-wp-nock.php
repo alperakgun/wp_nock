@@ -58,9 +58,9 @@ class Test_WP_Nock extends WP_UnitTestCase {
 
 		$nock->redirect(
 			self::TEST_URL,
-			$this,
-			function( $test, $payload ) {
+			function( $payload ) {
 				$this->assertSame( $payload['location'], self::TEST_URL );
+				return false;
 			}
 		);
 

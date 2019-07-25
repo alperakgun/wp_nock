@@ -51,7 +51,31 @@ class Test_My_Cool_WordPress_Plugin extends WP_UnitTestCase {
 		$nock->tear_down();
 	}
 
-  # Testing the wp_redirect requires catching the WP_Nock_Exception
+```
+
+Testing the wp_redirect requires a callback
+
+```
+	public function test_wp_nock_wp_redirect_with_callback() {
+		$nock = new WP_Nock();
+		$nock->set_up();
+
+		$nock->redirect(
+			self::TEST_URL,
+			function( $payload ) {
+				$this->assertSame( $payload['location'], self::TEST_URL );
+				return false;
+			}
+		);
+
+		wp_redirect( self::TEST_URL );
+		$nock->tear_down();
+	}
+```
+
+Another way of testing the wp_redirect requires an exception
+
+```
 	public function test_wp_nock_wp_redirect() {
 		$nock = new WP_Nock();
 		$nock->set_up();

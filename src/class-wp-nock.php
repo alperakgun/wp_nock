@@ -118,17 +118,15 @@ class WP_Nock {
 	 * @param String   $url the target url to intercept String or Regex.
 	 * @param String   $type HTTP Verb like GET, POST or REDIRECT.
 	 * @param Array    $reply The reply array in response to the request.
-	 * @param Object   $test An optional test object calling this.
 	 * @param Function $callback An optional callback to call for redirects.
 	 * @return Boolean $result True for success.
 	 */
-	public function request( $url, $type, $reply = array(), $test = null, $callback = null ) {
+	public function request( $url, $type, $reply = array(), $callback = null ) {
 
 		$this->mock_responses[] = array(
 			'type'     => $type,
 			'url'      => $url,
 			'reply'    => $reply,
-			'test'     => $test,
 			'callback' => $callback,
 		);
 
@@ -178,13 +176,12 @@ class WP_Nock {
 	 * Add a redirect URL stub request to intercept and raise an exception
 	 *
 	 * @param String   $url the target url to intercept String or Regex.
-	 * @param Object   $test An optional test object calling this.
 	 * @param Function $callback An optional callback to call for redirects.
 	 * @return Boolean $result True for success.
 	 */
-	public function redirect( $url, $test = null, $callback = null ) {
+	public function redirect( $url, $callback = null ) {
 
-		return $this->request( $url, 'REDIRECT', null, $test, $callback );
+		return $this->request( $url, 'REDIRECT', null, $callback );
 
 	}
 
